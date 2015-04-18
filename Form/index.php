@@ -65,7 +65,6 @@
 		echo $_POST['name']." ".$_POST['surname']."<br />".$Items2[$_POST['Items']]."<br />".$_POST['atributes']." ";
 		echo "<br />";
 		echo $_POST['quantity']."<br /> ".$_POST['quantity']*$Items1[$_POST['Items']];
-		
 		$Order=array(
 						"name"=>$_POST['name'],
 						"surname"=>$_POST['surname'],

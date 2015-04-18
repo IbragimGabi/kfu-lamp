@@ -1,78 +1,71 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <title>
-        �����������
+       Регистрация
     </title>
 </head>
 <body>
     <form action="registration.php" method="post" name="form">
         <p>
-            �����:
+            Логин:
+            <input type="text" name="login" />
+            <br />
+            <br />
+            Имя:
             <input type="text" name="name" />
             <br />
             <br />
-            ���:
-            <input type="text" name="surname" />
-            <br />
-            <br />
-            ������:
-            <input type="text" name="surname" />
+            Пароль:
+            <input type="password" name="pass" />
             <br />
             <br />
 			e-mail:
-            <input type="text" name="surname" />
+            <input type="text" name="email" />
             <br />
             <br />
-            <input type="submit" name="btn" value="���������">
+            <select name="sex">
+                <option value="man"> Мужской </option>
+                <option value="woman"> Женский </option>
+            </select>
+            <input type="submit" name="btn" value="Отправить">
         </p>
     </form>
     <?php
-	$Items1=array();
-	$file=file_get_contents("Items1");
-	$j=0;
-	for ($i = 0; $i < strlen($file); $i++) 
+	function validateEMAIL($EMAIL) {
+		$v = "/[a-zA-Z0-9_\-.+]+@[a-zA-Z0-9\-]+.[a-zA-Z]+/";
+		return (bool)preg_match($v, $EMAIL);
+		}
+	if(!empty($_POST['login'])&&!empty($_POST['name'])&&!empty($_POST['email'])&&!empty($_POST['sex']))
 	{
-		if($file[$i]==" ")
-		{
-			$Items1[]=substr($file,$j,$i-$j);
-			$j=$i+1;
+		if(isset($_POST['btn']))
+		{    
+			if(validateEMAIL($_POST['email']))
+			{
+				$user=array(
+								"login"=>$_POST['login'],
+								"name"=>$_POST['name'],
+								"email"=>$_POST['email'],
+								"sex"=>$_POST['sex'],
+								"pass"=>$_POST['pass']
+							);
+				$f=fopen('Users.csv','a+');
+				fputcsv($f,$user,';');	
+				fclose($f);
+				echo "Вы загестрированы";
+			}
+			else
+				echo "Неверная почта";
+			
 		}
 	}
-	$Items2=array();
-	$file=file_get_contents("Items2");
-	$j=0;
-	for ($i = 0; $i < strlen($file); $i++) 
+	else
 	{
-		if($file[$i]==" ")
-		{
-			$Items2[]=substr($file,$j,$i-$j);
-			$j=$i+1;
-		}
-	}
-	if(isset($_POST['btn']))
-	{    
-		echo $_POST['name']." ".$_POST['surname']."<br />".$Items2[$_POST['Items']]."<br />".$_POST['atributes']." ";
-		echo "<br />";
-		echo $_POST['quantity']."<br /> ".$_POST['quantity']*$Items1[$_POST['Items']];
-		
-		$Order=array(
-						"name"=>$_POST['name'],
-						"surname"=>$_POST['surname'],
-						"item"=>$Items2[$_POST['Items']],
-						"atributes"=>$_POST['atributes'],
-						"quantity"=>$_POST['quantity'],
-						"price"=>$Items1[$_POST['Items']],
-						"sum"=>$_POST['quantity']*$Items1[$_POST['Items']]
-					);
-		// foreach($newFileds as $fields)
-		// fputcsv($f),$fields,';');	
-		// fclose($f);
-		// fputcsv('Orders.csv',$Order,";");
-		file_put_contents('Order.csv',$Order, FILE_APPEND);
+		echo"Введите данные";
 	}
     ?>
+	
 </body>
 </html>
 
