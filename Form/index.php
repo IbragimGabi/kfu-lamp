@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+<?php
+	header('Content-Type: text/html; charset=utf-8');
+	error_reporting(E_ALL);
+	ini_set('display_errors', 'On');
+	session_start();
+	if(empty($_SESSION['auth']))
+	{
+		header("Location:index2.php");
+		exit();
+	}
+  ?>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -35,9 +46,12 @@
 			<br />
             <br />
             <input type="submit" name="btn" value="Отправить">
+			<br>
+			<a href="index2.php">На главную</a><br>
         </p>
     </form>
     <?php
+	
 	$Items1=array();
 	$file=file_get_contents("Items1");
 	$j=0;
