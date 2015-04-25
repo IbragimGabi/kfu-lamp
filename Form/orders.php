@@ -1,8 +1,9 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 	error_reporting(E_ALL);
 	ini_set('display_errors', 'On');
-  session_start();
-	if(empty($_SESSION['auth'])||($_SESSION['auth']['role']!=='admin'))
+   session_start();
+	if(empty($_SESSION['auth'])||strnatcasecmp ( $_SESSION['auth']['role'] , 'user' )>0)
 	{
 		header("Location:index2.php");
 		exit();
@@ -21,5 +22,6 @@
 		echo "<tr> <td>".$cbpos[0]."</td> <td>".$cbpos[1]."</td> <td>".$cbpos[2]."</td> <td>".$cbpos[3]."</td><td>".$cbpos[4]."</td><td>".$cbpos[5]."</td>  </tr>";
 	}
 	echo "</table>";
+	 echo "<br> <a href=".'index2.php'.">На главную</a><br>";
     ?>
 	

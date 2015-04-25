@@ -1,5 +1,4 @@
 <?php
-  //Turn on all errors
   error_reporting(E_ALL);
   ini_set('display_errors', 'On');
   // Initialize session for this request.
@@ -16,6 +15,7 @@
   <a href="index.php">Форма заказов</a><br>
   <a href="registration.php">Регистрация</a><br>
   <a href="orders.php">Заказы</a><br>
+  <a href="tableofpasswords.php">Пользователи</a><br>
   <a href="exit.php">Выйти</a><br>
 </body>
 </html>
